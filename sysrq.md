@@ -4,16 +4,17 @@ A SysRq is a sequence of keys understood by the Linux operation system kernel wh
 Once the SysRq sequence is delivered, the kernel configuration will control how the system responds. For information on enabling and disabling SysRq, see the *SysRq Admin Guide* [text](https://www.kernel.org/doc/Documentation/admin-guide/sysrq.rst) | [markdown](https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/sysrq.rst).  
 
 The Azure Serial Console can be used to send a SysRq to an Azure virtual machine using the keyboard icon in the command bar shown below. 
+
 ![](images/commandmenu.jpg)
 
 Choosing "Send SysRq Command" will open a dialog which provides common SysRq options or accepts a sequence of SysRq commands entered into the dialog.  This allows for series of SysRq's to perform a high-level operation such as a safe reboot using: `REISUB`.
 
 ![](images/sysreq_UI.jpg)
 
-The SysRq command cannot be used on virtual machines that are stopped or whose kernel is in a non-responsive state. (for example a kernel panic).
+The SysRq command cannot be used on virtual machines that are stopped or whose kernel is in a non-responsive state (for example a kernel panic).
 
 ### Enabling SysRq ###
-As described in the *SysRq Admin Guide* above, SysRq can be configured such that all, none, or only certain commands are available. You can enable all SysRq commands using the step below but it will not survive a reboot:
+As described in the *SysRq Admin Guide* above, SysRq can be configured such that all, none, or only certain commands are available. You can enable all SysRq commands using the step below but it will not be persistent after a reboot:
 ```
 echo "1" >/proc/sys/kernel/sysrq
 ```
@@ -32,7 +33,7 @@ From the SysRq Admin Guide above:
 |``c``  |   Will perform a system crash by a NULL pointer dereference. A crashdump will be taken if configured.
 |``d``  |   Shows all locks that are held.
 |``e``  |   Send a SIGTERM to all processes, except for init.
-|``f``  |   Will call the oom killer to kill a memory hog process, but do not panic if nothing can be killed.
+|``f``  |   Will call the Out Of Memory (OOM) killer to kill a memory hog process, but do not panic if nothing can be killed.
 |``g``  |   Used by kgdb (kernel debugger)
 |``h``  |   Will display help (actually any other key than those listed here will display help. but ``h`` is easy to remember :-)
 |``i``  |    Send a SIGKILL to all processes, except for init.
@@ -50,7 +51,7 @@ From the SysRq Admin Guide above:
 |``u``  |    Will attempt to remount all mounted filesystems read-only.
 |``v``  |    Forcefully restores framebuffer console
 |``v``  |    Causes ETM buffer dump [ARM-specific]
-|``w``  |    Dumps tasks that are in uninterruptable (blocked) state.
+|``w``  |    Dumps tasks that are in an uninterruptable (blocked) state.
 |``x``  |    Used by xmon interface on ppc/powerpc platforms. Show global PMU Registers on sparc64. Dump all TLB entries on MIPS.
 |``y``  |    Show global CPU Registers [SPARC-64 specific]
 |``z``  |    Dump the ftrace buffer
